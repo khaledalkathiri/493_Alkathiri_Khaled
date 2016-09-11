@@ -1,4 +1,4 @@
-package com.packtpub.libgdx.canyonbunny.util;
+package com.alkathirigdx.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;

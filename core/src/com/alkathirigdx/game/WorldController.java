@@ -12,9 +12,6 @@ import com.badlogic.gdx.math.MathUtils;
 //for using keys 
 import com.badlogic.gdx.InputAdapter;
 
-//for using cameraHelper
-import com.packtpub.libgdx.canyonbunny.util.CameraHelper;
-
 
 public class WorldController  extends InputAdapter
 {
