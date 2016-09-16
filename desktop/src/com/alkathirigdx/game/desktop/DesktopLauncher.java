@@ -15,10 +15,15 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 
 
 
+
 public class DesktopLauncher 
 {
-    private static boolean rebuildAtlas = true;
-    private static boolean drawDebugOutline = true;
+	
+	//set it to true to rebuild a new atlas
+    private static boolean rebuildAtlas = false;
+    
+    //when you change it make sure you rebuild a new atlas
+    private static boolean drawDebugOutline = false;
     
     
 	public static void main (String[] arg) 
@@ -30,7 +35,7 @@ public class DesktopLauncher
             settings.maxHeight = 1024;
             settings.duplicatePadding = false;
             settings.debug = drawDebugOutline;
-            TexturePacker.process(settings, "assets-raw/images", "../CanyonBunny-core/assets/images",
+            TexturePacker.process(settings, "assets-raw/images", "../core/assets/images",
   "canyonbunny.pack");
 }
 

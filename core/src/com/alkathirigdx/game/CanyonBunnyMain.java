@@ -5,6 +5,13 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
+
+
+//for testing the assets
+import com.badlogic.gdx.assets.AssetManager;
+import com.alkathirigdx.game.Assets;
+
+
 public class CanyonBunnyMain implements ApplicationListener
 {
 	private static final String TAG = CanyonBunnyMain.class.getName();
@@ -21,6 +28,9 @@ public class CanyonBunnyMain implements ApplicationListener
 		
 		//set Libgdx log level to DEBUG
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		
+		// Load assets
+		Assets.instance.init(new AssetManager());
 		
 		//initialize controller and renderer
 		worldController = new WorldController();
@@ -87,8 +97,7 @@ public class CanyonBunnyMain implements ApplicationListener
 	public void dispose() 
 	{
 		worldRenderer.dispose();
-		// TODO Auto-generated method stub
-		
+	    Assets.instance.dispose();
 	}
 
 }
