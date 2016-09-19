@@ -24,11 +24,20 @@ public class Assets implements Disposable, AssetErrorListener
 	private AssetManager assetManager;
 
 
-	public AssetBunny bunny;
+//	public AssetBunny bunny;
+//	public AssetRock rock;
+//	public AssetGoldCoin goldCoin;
+//	public AssetFeather feather;
+//	public AssetLevelDecoration levelDecoration;
+	
+	
+	public AssetFarmer farmer;
 	public AssetRock rock;
-	public AssetGoldCoin goldCoin;
 	public AssetFeather feather;
 	public AssetLevelDecoration levelDecoration;
+	public AssetTree palmTree;
+	public AssetSnake snakes;
+	public AssetHouse house;
 
 	// singleton: prevent instantiation from other classes
 	private Assets () 
@@ -63,12 +72,21 @@ public class Assets implements Disposable, AssetErrorListener
 			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
+//		// create game resource objects
+//		bunny = new AssetBunny(atlas);
+//		rock = new AssetRock(atlas);
+//		goldCoin = new AssetGoldCoin(atlas);
+//		feather = new AssetFeather(atlas);
+//		levelDecoration = new AssetLevelDecoration(atlas);
+		
 		// create game resource objects
-		bunny = new AssetBunny(atlas);
+		farmer = new AssetFarmer(atlas);
 		rock = new AssetRock(atlas);
-		goldCoin = new AssetGoldCoin(atlas);
 		feather = new AssetFeather(atlas);
 		levelDecoration = new AssetLevelDecoration(atlas);
+		palmTree = new AssetTree(atlas);
+		snakes = new AssetSnake(atlas);
+		house = new AssetHouse(atlas);
 	}
 
 	
@@ -90,32 +108,47 @@ public class Assets implements Disposable, AssetErrorListener
 
 
 
-	public class AssetBunny 
+	public class AssetFarmer
 	{
-		public final AtlasRegion head;
-		public AssetBunny (TextureAtlas atlas) 
+		public final AtlasRegion farmer;
+		public AssetFarmer (TextureAtlas atlas) 
 		{
-			head = atlas.findRegion("bunny_head");
+			farmer = atlas.findRegion("farmer");
 		}
 	}
 
 	public class AssetRock 
 	{
-		public final AtlasRegion edge;
+		public final AtlasRegion leftEdge;
+		public final AtlasRegion rightEdge;
 		public final AtlasRegion middle;
+		
 		public AssetRock (TextureAtlas atlas) 
 		{
-			edge = atlas.findRegion("rock_edge");
+			leftEdge = atlas.findRegion("leftEdge");
+			rightEdge = atlas.findRegion("rightEdge");
 			middle = atlas.findRegion("rock_middle");
 		}
 	}
-
-	public class AssetGoldCoin 
+	
+	public class AssetTree
 	{
-		public final AtlasRegion goldCoin;
-		public AssetGoldCoin (TextureAtlas atlas) 
+		public final AtlasRegion singleTree;
+		public final AtlasRegion twoTrees;
+		
+		public AssetTree(TextureAtlas atlas)
 		{
-			goldCoin = atlas.findRegion("item_gold_coin");
+			singleTree = atlas.findRegion("singleTree");
+			twoTrees = atlas.findRegion("PalmTree");
+		}
+	}
+
+	public class AssetSnake 
+	{
+		public final AtlasRegion snake;
+		public AssetSnake (TextureAtlas atlas) 
+		{
+			snake = atlas.findRegion("snake");
 		}
 	}
 
@@ -125,7 +158,17 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		public AssetFeather (TextureAtlas atlas)
 		{
-			feather = atlas.findRegion("item_feather");
+			feather = atlas.findRegion("feather");
+		}
+	}
+	
+	public class AssetHouse
+	{
+		public final AtlasRegion house;
+		
+		public AssetHouse(TextureAtlas atlas)
+		{
+			house = atlas.findRegion("house");
 		}
 	}
 
@@ -137,7 +180,6 @@ public class Assets implements Disposable, AssetErrorListener
 		public final AtlasRegion cloud03;
 		public final AtlasRegion mountainLeft;
 		public final AtlasRegion mountainRight;
-		public final AtlasRegion waterOverlay;
 		public AssetLevelDecoration (TextureAtlas atlas) 
 		{
 			cloud01 = atlas.findRegion("cloud01");
@@ -145,7 +187,6 @@ public class Assets implements Disposable, AssetErrorListener
 			cloud03 = atlas.findRegion("cloud03");
 			mountainLeft = atlas.findRegion("mountain_left");
 			mountainRight = atlas.findRegion("mountain_right");
-			waterOverlay = atlas.findRegion("water_overlay");
 		}
 	}
 
