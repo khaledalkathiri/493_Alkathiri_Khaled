@@ -1,9 +1,14 @@
+/**
+ * Game Development 
+ * @author khaledalkathiri
+ */
+
 package com.alkathirigdx.game;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.MathUtils;
+import com.alkathirigdx.game.AbstractGameObject;
 
 public class CameraHelper 
 {
@@ -13,7 +18,10 @@ public class CameraHelper
 	private final float MAX_ZOOM_OUT = 10.0f;
 	private Vector2 position;
 	private float zoom;
-	private Sprite target;
+	//private Sprite target;
+	
+	private AbstractGameObject target;
+
 	
 	
 	
@@ -30,8 +38,11 @@ public class CameraHelper
 		if (!hasTarget())
 			return;
 		
-		position.x = target.getX()+ target.getOriginX();
-		position.y = target.getY()+ target.getOriginY();
+		//position.x = target.getX()+ target.getOriginX();
+		//position.y = target.getY()+ target.getOriginY();
+		
+		 position.x = target.position.x + target.origin.x;
+	     position.y = target.position.y + target.origin.y;
 
 	}
 
@@ -62,20 +73,27 @@ public class CameraHelper
 		return zoom;
 	}
 
-	public void setTarget(Sprite sprite) 
+	public void setTarget(AbstractGameObject target) 
 	{
 		this.target = target;
 	}
 	
-	public Sprite getTarget()
+	public AbstractGameObject getTarget()
 	{
 		return target;
 	}
 	
-	public boolean hasTarget() //(Sprite target) 
+	
+	//Page 185
+	public boolean hasTarget(AbstractGameObject target) //(Sprite target) 
 	{
-		return false; //hasTarget() && this.target.equals(target);
+		return hasTarget() && this.target.equals(target);
 		
+	}
+	
+	public boolean hasTarget()
+	{
+		return target !=null;
 	}
 
 

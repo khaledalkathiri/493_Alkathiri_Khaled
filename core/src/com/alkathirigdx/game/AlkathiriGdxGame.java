@@ -1,3 +1,8 @@
+/**
+ * Game Development 
+ * @author khaledalkathiri
+ */
+
 package com.alkathirigdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
