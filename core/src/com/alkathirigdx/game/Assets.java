@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 import com.alkathirigdx.game.Constants;
@@ -24,18 +25,15 @@ public class Assets implements Disposable, AssetErrorListener
 	private AssetManager assetManager;
 
 
-//	public AssetBunny bunny;
-//	public AssetRock rock;
-//	public AssetGoldCoin goldCoin;
-//	public AssetFeather feather;
-//	public AssetLevelDecoration levelDecoration;
+	public AssetFonts fonts;
+
 	
 	
 	public AssetFarmer farmer;
 	public AssetRock rock;
 	public AssetFeather feather;
 	public AssetLevelDecoration levelDecoration;
-	public AssetTree palmTree;
+	//public AssetTree palmTree;
 	public AssetSnake snakes;
 	public AssetHouse house;
 
@@ -72,19 +70,16 @@ public class Assets implements Disposable, AssetErrorListener
 			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
-//		// create game resource objects
-//		bunny = new AssetBunny(atlas);
-//		rock = new AssetRock(atlas);
-//		goldCoin = new AssetGoldCoin(atlas);
-//		feather = new AssetFeather(atlas);
-//		levelDecoration = new AssetLevelDecoration(atlas);
+
 		
 		// create game resource objects
+	    fonts = new AssetFonts();
+
 		farmer = new AssetFarmer(atlas);
 		rock = new AssetRock(atlas);
 		feather = new AssetFeather(atlas);
 		levelDecoration = new AssetLevelDecoration(atlas);
-		palmTree = new AssetTree(atlas);
+		//palmTree = new AssetTree(atlas);
 		snakes = new AssetSnake(atlas);
 		house = new AssetHouse(atlas);
 	}
@@ -96,6 +91,9 @@ public class Assets implements Disposable, AssetErrorListener
 	public void dispose () 
 	{
 		assetManager.dispose();
+		fonts.defaultSmall.dispose();
+	    fonts.defaultNormal.dispose();
+	    fonts.defaultBig.dispose();
 	}
 
 
@@ -120,29 +118,18 @@ public class Assets implements Disposable, AssetErrorListener
 	public class AssetRock 
 	{
 		public final AtlasRegion leftEdge;
-		public final AtlasRegion rightEdge;
+		//public final AtlasRegion rightEdge;
 		public final AtlasRegion middle;
 		
 		public AssetRock (TextureAtlas atlas) 
 		{
 			leftEdge = atlas.findRegion("leftEdge");
-			rightEdge = atlas.findRegion("rightEdge");
-			middle = atlas.findRegion("rock_middle");
+			//rightEdge = atlas.findRegion("rightEdge");
+			middle = atlas.findRegion("middle");
 		}
 	}
 	
-	public class AssetTree
-	{
-		public final AtlasRegion singleTree;
-		public final AtlasRegion twoTrees;
-		
-		public AssetTree(TextureAtlas atlas)
-		{
-			singleTree = atlas.findRegion("singleTree");
-			twoTrees = atlas.findRegion("PalmTree");
-		}
-	}
-
+	
 	public class AssetSnake 
 	{
 		public final AtlasRegion snake;
@@ -172,9 +159,22 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 
+//	public class AssetTree
+//	{
+//		public final AtlasRegion singleTree;
+//		public final AtlasRegion twoTrees;
+//		
+//		public AssetTree(TextureAtlas atlas)
+//		{
+//			singleTree = atlas.findRegion("singleTree");
+//			twoTrees = atlas.findRegion("PalmTree");
+//		}
+//	}
+
 
 	public class AssetLevelDecoration 
 	{
+		public final AtlasRegion twoTrees;
 		public final AtlasRegion cloud01;
 		public final AtlasRegion cloud02;
 		public final AtlasRegion cloud03;
@@ -187,9 +187,37 @@ public class Assets implements Disposable, AssetErrorListener
 			cloud03 = atlas.findRegion("cloud03");
 			mountainLeft = atlas.findRegion("mountain_left");
 			mountainRight = atlas.findRegion("mountain_right");
+			twoTrees = atlas.findRegion("PalmTree");
 		}
 	}
 
+	
+	public class AssetFonts 
+	{
+		public final BitmapFont defaultSmall;
+		public final BitmapFont defaultNormal;
+		public final BitmapFont defaultBig;
+		
+		public AssetFonts ()
+		{
+			// create three fonts using Libgdx's 15px bitmap font
+			defaultSmall = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true);
+			defaultNormal = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true);
+			defaultBig = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true);
+			
+			
+			// set font sizes
+			defaultSmall.getData().setScale(0.75f);
+			defaultNormal.getData().setScale(1.0f);
+			defaultBig.getData().setScale(2.0f);
+			
+			
+			// enable linear texture filtering for smooth fonts
+			defaultSmall.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			defaultNormal.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			defaultBig.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		} 
+	}
 
 
 }

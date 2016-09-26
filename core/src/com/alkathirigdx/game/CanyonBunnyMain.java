@@ -70,11 +70,7 @@ public class CanyonBunnyMain implements ApplicationListener
 		//Render game world to screen
 		worldRenderer.render();
 		
-		
-		
-		
-		// TODO Auto-generated method stub
-		
+				
 	}
 
 	@Override
