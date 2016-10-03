@@ -22,7 +22,7 @@ public class Rock extends AbstractGameObject
 
 	private void init () 
 	{
-		dimension.set(0.75f, 0.75f);
+		dimension.set(1, 1.4f);
 		regEdge = Assets.instance.rock.leftEdge;
 		regMiddle = Assets.instance.rock.middle;
 		// Start length of this rock
@@ -32,6 +32,9 @@ public class Rock extends AbstractGameObject
 	public void setLength (int length) 
 	{
 		this.length = length;
+		
+		// Update bounding box for collision detection 
+		bounds.set(0, 0, dimension.x * length, dimension.y);
 	}
 	public void increaseLength (int amount)
 	{

@@ -32,6 +32,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetFarmer farmer;
 	public AssetRock rock;
 	public AssetFeather feather;
+	public AssetDates dates;
 	public AssetLevelDecoration levelDecoration;
 	//public AssetTree palmTree;
 	public AssetSnake snakes;
@@ -77,6 +78,7 @@ public class Assets implements Disposable, AssetErrorListener
 
 		farmer = new AssetFarmer(atlas);
 		rock = new AssetRock(atlas);
+		dates = new AssetDates(atlas);
 		feather = new AssetFeather(atlas);
 		levelDecoration = new AssetLevelDecoration(atlas);
 		//palmTree = new AssetTree(atlas);
@@ -129,6 +131,14 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	public class AssetDates 
+	{
+		public final AtlasRegion dates;
+		public AssetDates (TextureAtlas atlas) 
+		{
+			dates = atlas.findRegion("dates");
+		}
+	}
 	
 	public class AssetSnake 
 	{
@@ -180,6 +190,8 @@ public class Assets implements Disposable, AssetErrorListener
 		public final AtlasRegion cloud03;
 		public final AtlasRegion mountainLeft;
 		public final AtlasRegion mountainRight;
+		public final AtlasRegion waterOverlay;
+
 		public AssetLevelDecoration (TextureAtlas atlas) 
 		{
 			cloud01 = atlas.findRegion("cloud01");
@@ -188,6 +200,8 @@ public class Assets implements Disposable, AssetErrorListener
 			mountainLeft = atlas.findRegion("mountain_left");
 			mountainRight = atlas.findRegion("mountain_right");
 			twoTrees = atlas.findRegion("PalmTree");
+			waterOverlay = atlas.findRegion("water_overlay");
+
 		}
 	}
 

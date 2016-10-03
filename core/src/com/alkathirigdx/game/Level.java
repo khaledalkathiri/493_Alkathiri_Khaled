@@ -47,7 +47,14 @@ public class Level
 	public Clouds clouds;
 	public Mountains mountains;
 	public Trees trees;
-	//public WaterOverlay waterOverlay;
+	public WaterOverlay waterOverlay;
+
+
+	//objects
+	public Farmer farmer;
+	public Array<Dates> dates;
+	public Array<Feather> feathers;
+
 
 	public Level (String filename) 
 	{
@@ -56,8 +63,14 @@ public class Level
 
 	private void init (String filename) 
 	{
+		// player character
+		farmer = null;
+
 		// objects
 		rocks = new Array<Rock>();
+
+		dates = new Array<Dates>();
+		feathers = new Array<Feather>();
 
 		// load image file that represents the level data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -107,18 +120,31 @@ public class Level
 				(BLOCK_TYPE.PLAYER_SPAWNPOINT.sameColor(currentPixel)) 
 				{
 
+					obj = new Farmer();
+					offsetHeight = -3.0f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					farmer = (Farmer)obj;
+
 				}
 				// feather
 
 				else if (BLOCK_TYPE.ITEM_FEATHER.sameColor(currentPixel)) 
 				{
 
+					obj = new Feather();
+					offsetHeight = -1.5f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					feathers.add((Feather)obj);
 				}
 
 				// gold coin
 				else if (BLOCK_TYPE.ITEM_GOLD_COIN.sameColor(currentPixel))
 				{
 
+					obj = new Dates();
+					offsetHeight = -1.5f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y+ offsetHeight);
+					dates.add((Dates)obj);
 				}
 
 				// unknown object/pixel color
@@ -141,11 +167,13 @@ public class Level
 		clouds.position.set(0, 2);
 		mountains = new Mountains(pixmap.getWidth());
 		mountains.position.set(-1, -1);
-		trees = new Trees(pixmap.getWidth());
+		waterOverlay = new WaterOverlay(pixmap.getWidth());
+		waterOverlay.position.set(0, -3.75f);
 
+		//trees = new Trees(pixmap.getWidth());
 		//trees.position.set(0, -3.75f);
-		trees.position.set(0, -2.50f);
-				
+		//trees.position.set(0, -2.50f);
+
 		// free memory
 		pixmap.dispose();
 		Gdx.app.debug(TAG, "level '" + filename + "' loaded");
@@ -158,19 +186,51 @@ public class Level
 
 		// Draw Mountains
 		mountains.render(batch);
-		
+
 		// Draw Rocks
 		for (Rock rock : rocks)
 		{
 			rock.render(batch);
 		}
-		
-		// Draw Water Overlay
-		trees.render(batch);
 
-		
+		// Draw Gold Coins
+		for (Dates dates : dates)
+			dates.render(batch);
+
+		// Draw Feathers
+		for (Feather feather : feathers)
+			feather.render(batch);
+
+		// Draw Player Character
+		farmer.render(batch);
+
+		// Draw Water Overlay
+		waterOverlay.render(batch);
+
+//		// Draw trees 
+//		trees.render(batch);
+
+
 		// Draw Clouds
 		clouds.render(batch);
 
+	}
+	
+	public void update (float deltaTime) 
+	{
+		farmer.update(deltaTime);
+
+		for(Rock rock : rocks)
+			rock.update(deltaTime);
+
+		for(Dates dates : dates)
+			dates.update(deltaTime);
+
+
+		for(Feather feather : feathers)
+			feather.update(deltaTime);
+
+
+		clouds.update(deltaTime);
 	}
 }
