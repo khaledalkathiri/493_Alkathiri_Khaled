@@ -1,12 +1,13 @@
-package com.alkathirigdx.game;
+package Objects;
 
 
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.alkathirigdx.game.Assets;
-import com.alkathirigdx.game.Constants;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import Game.AbstractGameObject;
+import Utilities.Constants;
 
 public class Farmer extends AbstractGameObject
 {

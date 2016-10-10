@@ -1,6 +1,7 @@
-package com.alkathirigdx.game;
+package Game;
 
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -11,16 +12,21 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 //for using keys 
 import com.badlogic.gdx.InputAdapter;
-
-import com.alkathirigdx.game.Rock;
-//import com.alkathirigdx.game.Farmer.JUMP_STATE;
-
-import com.alkathirigdx.game.Constants;
-import com.alkathirigdx.game.Farmer.JUMP_STATE;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.math.Rectangle;
 
+import Objects.Dates;
+import Objects.Farmer;
+import Objects.Feather;
+import Objects.Rock;
+import Objects.Farmer.JUMP_STATE;
+import Utilities.CameraHelper;
+import Utilities.Constants;
+
+import com.badlogic.gdx.math.Rectangle;
+import Screens.MenuScreen;
+import Utilities.CameraHelper;
+import Utilities.Constants;
 
 public class WorldController  extends InputAdapter
 {
@@ -48,10 +54,17 @@ public class WorldController  extends InputAdapter
 
 	}
 
-
-
-	public WorldController()
+	private Game game;
+	private void backToMenu () 
 	{
+		// switch to menu screen
+		game.setScreen(new MenuScreen(game));
+	}
+
+
+	public WorldController(Game game)
+	{
+		this.game= game;
 		init();
 	}
 
@@ -78,7 +91,7 @@ public class WorldController  extends InputAdapter
 		{
 			handleInputGame(deltaTime);
 		}
-		
+
 		level.update(deltaTime);
 		testCollisions();
 
@@ -170,8 +183,13 @@ public class WorldController  extends InputAdapter
 			cameraHelper.setTarget(cameraHelper.hasTarget() ? null : level.farmer);
 			Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
 		}
-		return false;
 
+		// Back to Menu
+		else if (keycode == Keys.ESCAPE || keycode == Keys.BACK)
+		{
+			backToMenu();
+		}
+		return false;
 	}
 
 

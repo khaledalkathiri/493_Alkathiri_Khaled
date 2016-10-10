@@ -1,9 +1,10 @@
-package com.alkathirigdx.game;
+package Objects;
 
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.alkathirigdx.game.Assets;;
+
+import Game.AbstractGameObject;;
 
 public class Trees extends AbstractGameObject
 {

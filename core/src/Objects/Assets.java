@@ -1,4 +1,4 @@
-package com.alkathirigdx.game;
+package Objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
-import com.alkathirigdx.game.Constants;
 
+import Utilities.Constants;
 
 //to import atlasRegion
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -34,6 +34,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetFeather feather;
 	public AssetDates dates;
 	public AssetLevelDecoration levelDecoration;
+	
 	//public AssetTree palmTree;
 	public AssetSnake snakes;
 	public AssetHouse house;

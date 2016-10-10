@@ -1,4 +1,4 @@
-package com.alkathirigdx.game;
+package Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+
+import Objects.Assets;
+import Utilities.Constants;
+import Utilities.GamePreferences;
 
 public class WorldRenderer implements Disposable
 {
@@ -65,7 +69,9 @@ public class WorldRenderer implements Disposable
 			renderGuiExtraLive(batch);
 
 			// draw FPS text (anchored to bottom right edge)
-			renderGuiFpsCounter(batch);
+			if (GamePreferences.instance.showFpsCounter) 
+				renderGuiFpsCounter(batch);
+
 
 			// draw game over text
 			renderGuiGameOverMessage(batch);

@@ -1,8 +1,11 @@
-package com.alkathirigdx.game;
+package Utilities;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+
+import Game.AbstractGameObject;
+
 import com.badlogic.gdx.math.MathUtils;
 
 public class CameraHelper 

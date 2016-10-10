@@ -1,17 +1,18 @@
-package com.alkathirigdx.game;
-
+package Objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.alkathirigdx.game.Assets;
+
+import Game.AbstractGameObject;
 
 
-public class Dates extends AbstractGameObject
+public class Feather extends AbstractGameObject
 {
-
-	private TextureRegion regDates;
+	private TextureRegion regFeather;
 	public boolean collected;
-	public Dates () 
+
+
+	public Feather () 
 	{
 		init();
 	}
@@ -20,18 +21,20 @@ public class Dates extends AbstractGameObject
 	private void init () 
 	{
 		dimension.set(0.5f, 0.5f);
-		regDates = Assets.instance.dates.dates;
+		regFeather = Assets.instance.feather.feather;
+		
+		
 		// Set bounding box for collision detection
 		bounds.set(0, 0, dimension.x, dimension.y);
 		collected = false;
 	}
 	
-	@Override
+	
 	public void render (SpriteBatch batch) 
 	{
 		if (collected) return;
 		TextureRegion reg = null;
-		reg = regDates;
+		reg = regFeather;
 		batch.draw(reg.getTexture(), position.x, position.y,
 				origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y,
 				rotation, reg.getRegionX(), reg.getRegionY(),
@@ -41,6 +44,6 @@ public class Dates extends AbstractGameObject
 	
 	public int getScore() 
 	{
-		return 100;
+		return 250;
 	}
 }
