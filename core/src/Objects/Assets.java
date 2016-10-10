@@ -3,7 +3,7 @@
  * @author khaledalkathiri
  */
 
-package com.alkathirigdx.game;
+package Objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -12,8 +12,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
-import com.alkathirigdx.game.Constants;
 
+import Utilities.Constants;
 
 //to import atlasRegion
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;

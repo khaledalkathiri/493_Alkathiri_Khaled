@@ -1,9 +1,10 @@
-package com.alkathirigdx.game;
+package Objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.alkathirigdx.game.Assets;;
+
+import Game.AbstractGameObject;;
 
 public class Mountains extends AbstractGameObject
 {

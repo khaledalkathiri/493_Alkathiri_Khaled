@@ -3,7 +3,7 @@
  * @author khaledalkathiri
  */
 
-package com.alkathirigdx.game;
+package Game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;

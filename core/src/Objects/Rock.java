@@ -1,8 +1,10 @@
-package com.alkathirigdx.game;
+package Objects;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import Game.AbstractGameObject;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.alkathirigdx.game.Assets;
 
 
 public class Rock extends AbstractGameObject

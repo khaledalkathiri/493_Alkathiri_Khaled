@@ -1,15 +1,18 @@
-package com.alkathirigdx.game;
+package Game;
 
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.alkathirigdx.game.AbstractGameObject;
-import com.alkathirigdx.game.Clouds;
-import com.alkathirigdx.game.Mountains;
-import com.alkathirigdx.game.WaterOverlay;
-import com.alkathirigdx.game.Rock;
+
+import Objects.BunnyHead;
+import Objects.Clouds;
+import Objects.Feather;
+import Objects.GoldCoin;
+import Objects.Mountains;
+import Objects.Rock;
+import Objects.WaterOverlay;
 
 public class Level 
 {

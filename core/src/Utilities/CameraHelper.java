@@ -3,12 +3,14 @@
  * @author khaledalkathiri
  */
 
-package com.alkathirigdx.game;
+package Utilities;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+
+import Game.AbstractGameObject;
+
 import com.badlogic.gdx.math.MathUtils;
-import com.alkathirigdx.game.AbstractGameObject;
 
 public class CameraHelper 
 {
