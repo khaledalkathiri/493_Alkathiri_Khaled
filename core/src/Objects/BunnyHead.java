@@ -8,6 +8,8 @@ import Game.AbstractGameObject;
 import Utilities.CharacterSkin;
 import Utilities.Constants;
 import Utilities.GamePreferences;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
 
 public class BunnyHead extends AbstractGameObject
@@ -25,6 +27,8 @@ public class BunnyHead extends AbstractGameObject
 	public boolean hasFeatherPowerup;
 	public float timeLeftFeatherPowerup;
 
+
+	public ParticleEffect dustParticles = new ParticleEffect();
 
 	public BunnyHead () 
 	{
@@ -51,6 +55,10 @@ public class BunnyHead extends AbstractGameObject
 		// Power-ups
 		hasFeatherPowerup = false;
 		timeLeftFeatherPowerup = 0;
+
+
+		// Particles
+		dustParticles.load(Gdx.files.internal("particles/dust.pfx"), Gdx.files.internal("particles"));
 	}
 
 	public void setJumping (boolean jumpKeyPressed)
@@ -121,6 +129,8 @@ public class BunnyHead extends AbstractGameObject
 
 
 		}
+
+		dustParticles.update(deltaTime);
 	}
 
 	@Override
@@ -130,65 +140,82 @@ public class BunnyHead extends AbstractGameObject
 		{
 		case GROUNDED:
 			jumpState = JUMP_STATE.FALLING;
-			break;
-
-		case JUMP_RISING:
-			// Keep track of jump time
-			timeJumping += deltaTime;
-
-			// Jump time left?
-			if (timeJumping <= JUMP_TIME_MAX) 
+			if (velocity.x != 0)
 			{
-				// Still jumping
-				velocity.y = terminalVelocity.y;
+				dustParticles.setPosition(position.x + dimension.x / 2, position.y);
+				dustParticles.start();
 			}
-			break;
+				break;
+
+			case JUMP_RISING:
+				// Keep track of jump time
+				timeJumping += deltaTime;
+
+				// Jump time left?
+				if (timeJumping <= JUMP_TIME_MAX) 
+				{
+					// Still jumping
+					velocity.y = terminalVelocity.y;
+				}
+				break;
 
 
-		case FALLING:
-			break;
+			case FALLING:
+				break;
 
-		case JUMP_FALLING:
-			// Add delta times to track jump time
-			timeJumping += deltaTime;
-			// Jump to minimal height if jump key was pressed too short
-			if (timeJumping > 0 && timeJumping <= JUMP_TIME_MIN) 
-			{
-				// Still jumping
-				velocity.y = terminalVelocity.y;
+			case JUMP_FALLING:
+				// Add delta times to track jump time
+				timeJumping += deltaTime;
+				// Jump to minimal height if jump key was pressed too short
+				if (timeJumping > 0 && timeJumping <= JUMP_TIME_MIN) 
+				{
+					// Still jumping
+					velocity.y = terminalVelocity.y;
+				}
 			}
-		}
-		if (jumpState != JUMP_STATE.GROUNDED)			//Always true "Dr. Girard"
-			super.updateMotionY(deltaTime);
-	}
-
-
-
-
-	@Override
-	public void render (SpriteBatch batch) 
-	{
-		TextureRegion reg = null;
 		
-		// Apply Skin Color
-	     batch.setColor(
-	       CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
+		
+			if (jumpState != JUMP_STATE.GROUNDED)			//Always true "Dr. Girard"
+				{
+					dustParticles.allowCompletion();
+					super.updateMotionY(deltaTime);
 
-		// Set special color when game object has a feather power-up
-		if (hasFeatherPowerup) 
+				}
+		}
+
+
+
+
+		@Override
+		public void render (SpriteBatch batch) 
 		{
-			batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
-		}
+			TextureRegion reg = null;
 
-		// Draw image
-		reg = regHead;
-		batch.draw(reg.getTexture(), position.x, position.y, origin.x,
-				origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,
-				reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(),
-				reg.getRegionHeight(), viewDirection == VIEW_DIRECTION.LEFT,
-				false);
-		
-		// Reset color to white
-		batch.setColor(1, 1, 1, 1);
+
+			// Draw Particles
+			dustParticles.draw(batch);
+
+			// Apply Skin Color
+			batch.setColor(
+					CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
+
+			// Set special color when game object has a feather power-up
+			if (hasFeatherPowerup) 
+			{
+				batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
+			}
+
+			// Draw image
+			reg = regHead;
+			batch.draw(reg.getTexture(), position.x, position.y, origin.x,
+					origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,
+					reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(),
+					reg.getRegionHeight(), viewDirection == VIEW_DIRECTION.LEFT,
+					false);
+
+			// Reset color to white
+			batch.setColor(1, 1, 1, 1);
+
+
+		}
 	}
-}
