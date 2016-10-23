@@ -31,7 +31,7 @@ public class Constants
 
 	
 
-	public static final String TEXTURE_ATLAS_UI ="images/theFarmer-ui.atlas";
+	public static final String TEXTURE_ATLAS_UI ="images/theFarmer-ui.pack.atlas";
 
 	public static final String TEXTURE_ATLAS_LIBGDX_UI ="images/uiskin.atlas";
 

@@ -6,63 +6,63 @@ filter: Nearest,Nearest
 repeat: none
 background
   rotate: false
-  xy: 2, 511
+  xy: 2, 440
   size: 801, 481
   orig: 801, 481
   offset: 0, 0
   index: -1
 dates
   rotate: false
-  xy: 957, 928
+  xy: 957, 857
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 farmer
   rotate: false
-  xy: 344, 445
+  xy: 333, 172
   size: 67, 64
   orig: 67, 64
   offset: 0, 0
   index: -1
 info
   rotate: false
-  xy: 2, 306
+  xy: 2, 154
   size: 329, 82
   orig: 329, 82
   offset: 0, 0
   index: -1
 logo
   rotate: false
-  xy: 2, 390
-  size: 340, 119
-  orig: 340, 119
+  xy: 2, 238
+  size: 962, 200
+  orig: 962, 200
   offset: 0, 0
   index: -1
 options-dn
   rotate: false
-  xy: 805, 842
+  xy: 805, 771
   size: 150, 150
   orig: 150, 150
   offset: 0, 0
   index: -1
 options-up
   rotate: false
-  xy: 2, 154
+  xy: 2, 2
   size: 150, 150
   orig: 150, 150
   offset: 0, 0
   index: -1
 play-dn
   rotate: false
-  xy: 805, 690
+  xy: 805, 619
   size: 150, 150
   orig: 150, 150
   offset: 0, 0
   index: -1
 play-up
   rotate: false
-  xy: 2, 2
+  xy: 154, 2
   size: 150, 150
   orig: 150, 150
   offset: 0, 0

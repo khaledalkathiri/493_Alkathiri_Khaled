@@ -3,11 +3,17 @@ package Objects;
 
 
 import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import Game.AbstractGameObject;
 import Utilities.Constants;
+import Utilities.CharacterSkin;
+import Utilities.GamePreferences;
+
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+
 
 public class Farmer extends AbstractGameObject
 {
@@ -23,6 +29,8 @@ public class Farmer extends AbstractGameObject
 	public JUMP_STATE jumpState;
 	public boolean hasFeatherPowerup;
 	public float timeLeftFeatherPowerup;
+
+	public ParticleEffect dustParticles = new ParticleEffect();
 
 
 	public Farmer () 
@@ -50,6 +58,12 @@ public class Farmer extends AbstractGameObject
 		// Power-ups
 		hasFeatherPowerup = false;
 		timeLeftFeatherPowerup = 0;
+		
+		
+
+		// Particles
+		dustParticles.load(Gdx.files.internal("particles/dust.pfx"), Gdx.files.internal("particles"));
+
 	}
 
 	public void setJumping (boolean jumpKeyPressed)
@@ -121,6 +135,9 @@ public class Farmer extends AbstractGameObject
 
 
 		}
+		
+		dustParticles.update(deltaTime);
+
 	}
 	
 
@@ -131,6 +148,12 @@ public class Farmer extends AbstractGameObject
 		{
 		case GROUNDED:
 			jumpState = JUMP_STATE.FALLING;
+			if (velocity.x != 0)
+			{
+				dustParticles.setPosition(position.x + dimension.x / 2, position.y);
+				dustParticles.start();
+			}
+			
 			break;
 
 		case JUMP_RISING:
@@ -160,7 +183,11 @@ public class Farmer extends AbstractGameObject
 			}
 		}
 		if (jumpState != JUMP_STATE.GROUNDED)			//Always true "Dr. Girard"
+		{
+			dustParticles.allowCompletion();
 			super.updateMotionY(deltaTime);
+
+		}
 	}
 
 
@@ -170,6 +197,15 @@ public class Farmer extends AbstractGameObject
 	public void render (SpriteBatch batch) 
 	{
 		TextureRegion reg = null;
+		
+
+		// Draw Particles
+		dustParticles.draw(batch);
+		
+		// Apply Skin Color
+					batch.setColor(CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
+		
+		
 		// Set special color when game object has a feather power-up
 		if (hasFeatherPowerup) 
 		{
