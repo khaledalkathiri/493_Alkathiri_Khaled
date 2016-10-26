@@ -15,11 +15,13 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+import Objects.Assets;
 import Objects.Dates;
 import Objects.Farmer;
 import Objects.Feather;
 import Objects.Rock;
 import Objects.Farmer.JUMP_STATE;
+import Utilities.AudioManager;
 import Utilities.CameraHelper;
 import Utilities.Constants;
 
@@ -105,6 +107,7 @@ public class WorldController  extends InputAdapter
 		cameraHelper.update(deltaTime);
 		if (!isGameOver() && isPlayerInWater()) 
 		{
+		    AudioManager.instance.play(Assets.instance.sounds.liveLost);
 			lives--;
 			if (isGameOver())
 				timeLeftGameOverDelay = Constants.TIME_DELAY_GAME_OVER;
@@ -247,6 +250,7 @@ public class WorldController  extends InputAdapter
 	private void onCollisionBunnyWithGoldCoin(Dates dates) 
 	{
 		dates.collected = true;
+		AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
 		score += dates.getScore();
 		Gdx.app.log(TAG, "dates collected");
 
@@ -255,6 +259,7 @@ public class WorldController  extends InputAdapter
 	private void onCollisionBunnyWithFeather(Feather feather) 
 	{
 		feather.collected = true;
+		AudioManager.instance.play(Assets.instance.sounds.pickupFeather);
 		score += feather.getScore();
 		level.farmer.setFeatherPowerup(true);
 		Gdx.app.log(TAG, "Feather collected");

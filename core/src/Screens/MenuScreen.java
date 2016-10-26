@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import Objects.Assets;
+import Utilities.AudioManager;
 import Utilities.CharacterSkin;
 import Utilities.Constants;
 import Utilities.GamePreferences;
@@ -352,6 +353,7 @@ public class MenuScreen extends AbstractGameScreen
 	private void onSaveClicked()
 	{
 		saveSettings();
+		AudioManager.instance.onSettingsUpdated();
 		onCancelClicked();
 	}
 	private void onCancelClicked() 
@@ -359,6 +361,8 @@ public class MenuScreen extends AbstractGameScreen
 		btnMenuPlay.setVisible(true);
 		btnMenuOptions.setVisible(true);
 		winOptions.setVisible(false);
+		AudioManager.instance.onSettingsUpdated();
+
 	}
 
 	@Override
