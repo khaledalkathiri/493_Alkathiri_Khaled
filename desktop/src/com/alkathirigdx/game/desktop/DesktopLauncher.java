@@ -20,7 +20,7 @@ public class DesktopLauncher
 {
 
 	//set it to true to rebuild a new atlas
-	private static boolean rebuildAtlas = false;
+	private static boolean rebuildAtlas = true;
 
 	//when you change it make sure you rebuild a new atlas
 	private static boolean drawDebugOutline = false;

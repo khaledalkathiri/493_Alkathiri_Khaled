@@ -2,7 +2,7 @@ package Game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
 
@@ -13,7 +13,7 @@ public abstract class AbstractGameObject
 	public Vector2 origin;
 	public Vector2 scale;
 	public float rotation;
-	
+
 
 	//for the actor game object
 	public Vector2 velocity;
@@ -22,8 +22,9 @@ public abstract class AbstractGameObject
 	public Vector2 acceleration;
 	public Rectangle bounds;
 
-	
-	
+	//for the carrots
+	public Body body;
+
 	public AbstractGameObject ()
 	{
 		position = new Vector2();
@@ -31,26 +32,36 @@ public abstract class AbstractGameObject
 		origin = new Vector2();
 		scale = new Vector2(1, 1);
 		rotation = 0;
-		
+
 		velocity = new Vector2();
 		terminalVelocity = new Vector2(1, 1);
 		friction = new Vector2(); 
 		acceleration = new Vector2();
-	    bounds = new Rectangle();
+		bounds = new Rectangle();
 	}
-	
-	
+
+
 	public void update (float deltaTime) 
 	{
-		updateMotionX(deltaTime);
-        updateMotionY(deltaTime);
-        
-        // Move to new position
-        position.x += velocity.x * deltaTime;
-        position.y += velocity.y * deltaTime;
+		if (body == null) 
+		{
+			updateMotionX(deltaTime);
+			updateMotionY(deltaTime);
+
+			// Move to new position
+			position.x += velocity.x * deltaTime;
+			position.y += velocity.y * deltaTime;
+		}
+		else 
+		{
+			position.set(body.getPosition());
+			rotation = body.getAngle() * MathUtils.radiansToDegrees;
+		}
+
+
 	}
-	
-	
+
+
 	public abstract void render (SpriteBatch batch);
 
 	protected void updateMotionX (float deltaTime) 
@@ -65,16 +76,16 @@ public abstract class AbstractGameObject
 				velocity.x = Math.min(velocity.x + friction.x * deltaTime, 0);
 			}
 		}
-		
+
 		// Apply acceleration
 		velocity.x += acceleration.x * deltaTime;
-		
+
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
 		velocity.x = MathUtils.clamp(velocity.x, -terminalVelocity.x, terminalVelocity.x);
 	}
-	
-	
+
+
 	protected void updateMotionY (float deltaTime)
 	{
 		if (velocity.y != 0)
@@ -87,16 +98,16 @@ public abstract class AbstractGameObject
 				velocity.y = Math.min(velocity.y + friction.y * deltaTime, 0);
 			}
 		}
-		
+
 		// Apply acceleration
 		velocity.y += acceleration.y * deltaTime;
-		
-		
+
+
 		// Make sure the object's velocity does not exceed the
 		// positive or negative terminal velocity
 		velocity.y = MathUtils.clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
 	}
-	
+
 }
 
 

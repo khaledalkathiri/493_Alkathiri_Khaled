@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
 import Objects.BunnyHead;
+import Objects.Carrot;
 import Objects.Clouds;
 import Objects.Feather;
+import Objects.Goal;
 import Objects.GoldCoin;
 import Objects.Mountains;
 import Objects.Rock;
@@ -24,7 +26,8 @@ public class Level
 		ROCK(0, 255, 0), // green
 		PLAYER_SPAWNPOINT(255, 255, 255), // white
 		ITEM_FEATHER(255, 0, 255), // purple
-		ITEM_GOLD_COIN(255, 255, 0); // yellow
+		ITEM_GOLD_COIN(255, 255, 0), // yellow
+		GOAL(255, 0, 0); // red
 
 		private int color;
 
@@ -53,6 +56,9 @@ public class Level
 	public Mountains mountains;
 	public WaterOverlay waterOverlay;
 
+	public Array<Carrot> carrots;
+	public Goal goal;
+
 
 	//objects
 	public BunnyHead bunnyHead;
@@ -74,6 +80,9 @@ public class Level
 		rocks = new Array<Rock>();
 		goldcoins = new Array<GoldCoin>();
 		feathers = new Array<Feather>();
+
+		carrots = new Array<Carrot>();
+
 
 		// load image file that represents the level data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -146,6 +155,15 @@ public class Level
 					goldcoins.add((GoldCoin)obj);
 				}
 
+				// goal
+				else if (BLOCK_TYPE.GOAL.sameColor(currentPixel)) 
+				{
+					obj = new Goal();
+					offsetHeight = -7.0f;
+					obj.position.set(pixelX, baseHeight + offsetHeight);
+					goal = (Goal)obj;
+				}
+
 				// unknown object/pixel color
 				else 
 				{
@@ -182,6 +200,9 @@ public class Level
 		// Draw Mountains
 		mountains.render(batch);
 
+		// Draw Goal
+		goal.render(batch);
+
 		// Draw Rocks
 		for (Rock rock : rocks)
 		{
@@ -191,11 +212,15 @@ public class Level
 		// Draw Gold Coins
 		for (GoldCoin goldCoin : goldcoins)
 			goldCoin.render(batch);
-		
+
 		// Draw Feathers
 		for (Feather feather : feathers)
 			feather.render(batch);
-		
+
+		// Draw Carrots
+		for (Carrot carrot : carrots)
+			carrot.render(batch);
+
 		// Draw Player Character
 		bunnyHead.render(batch);
 
@@ -223,6 +248,9 @@ public class Level
 
 		for(Feather feather : feathers)
 			feather.update(deltaTime);
+
+		for (Carrot carrot : carrots)
+			carrot.update(deltaTime);
 
 
 		clouds.update(deltaTime);
