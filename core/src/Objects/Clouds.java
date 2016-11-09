@@ -95,7 +95,9 @@ public class Clouds extends AbstractGameObject
 		speed.x += 0.5f; // base speed
 		// random additional speed
 		speed.x += MathUtils.random(0.0f, 0.75f);
-		cloud.terminalVelocity.set(speed); speed.x *= -1; // move left cloud.velocity.set(speed);
+		cloud.terminalVelocity.set(speed);
+		speed.x *= -1; // move left
+		cloud.velocity.set(speed);
 		return cloud;
 	}
 
