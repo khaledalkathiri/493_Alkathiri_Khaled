@@ -8,6 +8,7 @@ import Objects.Clouds;
 import Objects.Dates;
 import Objects.Farmer;
 import Objects.Feather;
+import Objects.Fire;
 import Objects.Mountains;
 import Objects.Rock;
 import Objects.Trees;
@@ -23,7 +24,8 @@ public class Level
 		ROCK(0, 255, 0), // green
 		PLAYER_SPAWNPOINT(255, 255, 255), // white
 		ITEM_FEATHER(255, 0, 255), // purple
-		ITEM_GOLD_COIN(255, 255, 0); // yellow
+		ITEM_GOLD_COIN(255, 255, 0), // yellow
+		FIRE(255,0, 0); //red
 
 		private int color;
 
@@ -58,6 +60,9 @@ public class Level
 	public Farmer farmer;
 	public Array<Dates> dates;
 	public Array<Feather> feathers;
+	
+	//fire
+	public Array <Fire> fires;
 
 
 	public Level (String filename) 
@@ -75,6 +80,8 @@ public class Level
 
 		dates = new Array<Dates>();
 		feathers = new Array<Feather>();
+		
+		fires = new Array<Fire>();
 
 		// load image file that represents the level data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -150,7 +157,13 @@ public class Level
 					obj.position.set(pixelX,baseHeight * obj.dimension.y+ offsetHeight);
 					dates.add((Dates)obj);
 				}
-
+				else if (BLOCK_TYPE.FIRE.sameColor(currentPixel))
+				{
+					obj = new Fire();
+					offsetHeight = -1.9f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y+ offsetHeight);
+					fires.add((Fire)obj);
+				}
 				// unknown object/pixel color
 				else 
 				{
@@ -204,6 +217,10 @@ public class Level
 		// Draw Feathers
 		for (Feather feather : feathers)
 			feather.render(batch);
+		
+		//Draw Fires
+		for (Fire fire: fires)
+			fire.render(batch);
 
 		// Draw Player Character
 		farmer.render(batch);
@@ -233,6 +250,9 @@ public class Level
 
 		for(Feather feather : feathers)
 			feather.update(deltaTime);
+		
+		for(Fire fire: fires)
+			fire.update(deltaTime);
 
 
 		clouds.update(deltaTime);

@@ -19,6 +19,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
+//animation
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.utils.Array;
 
 public class Assets implements Disposable, AssetErrorListener
 {
@@ -36,6 +39,8 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetFeather feather;
 	public AssetDates dates;
 	public AssetLevelDecoration levelDecoration;
+	
+	public AssetFire fire;
 	
 	//public AssetTree palmTree;
 	public AssetSnake snakes;
@@ -128,6 +133,8 @@ public class Assets implements Disposable, AssetErrorListener
 		snakes = new AssetSnake(atlas);
 		house = new AssetHouse(atlas);
 		
+		fire = new AssetFire(atlas);
+		
 
 		sounds = new AssetSounds(assetManager);
 		music = new AssetMusic(assetManager);
@@ -184,6 +191,27 @@ public class Assets implements Disposable, AssetErrorListener
 		public AssetDates (TextureAtlas atlas) 
 		{
 			dates = atlas.findRegion("dates");
+		}
+	}
+	
+	public class AssetFire
+	{
+		public final AtlasRegion fire;
+		public final Animation animFire;
+
+		
+		public AssetFire(TextureAtlas atlas)
+		{
+			fire = atlas.findRegion("fire");
+			
+			
+			// Animation:
+			Array<AtlasRegion> regions =atlas.findRegions("anim_fire");
+			AtlasRegion region = regions.first();
+			for (int i = 0; i < 10; i++)
+				regions.insert(0, region);
+
+			animFire = new Animation(1.0f / 20.0f, regions,Animation.PlayMode.LOOP_RANDOM);
 		}
 	}
 	

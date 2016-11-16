@@ -19,6 +19,7 @@ import Objects.Assets;
 import Objects.Dates;
 import Objects.Farmer;
 import Objects.Feather;
+import Objects.Fire;
 import Objects.Rock;
 import Objects.Farmer.JUMP_STATE;
 import Utilities.AudioManager;
@@ -264,6 +265,14 @@ public class WorldController  extends InputAdapter
 		level.farmer.setFeatherPowerup(true);
 		Gdx.app.log(TAG, "Feather collected");
 	}
+	
+	private void onCollisionBunnyWithFire(Fire fire) 
+	{
+		fire.touched = true;
+		AudioManager.instance.play(Assets.instance.sounds.pickupFeather);
+		score -= fire.getScore();
+		Gdx.app.log(TAG, "Fire touched");
+	}
 
 	private void testCollisions () 
 	{
@@ -305,6 +314,19 @@ public class WorldController  extends InputAdapter
 				continue;
 			onCollisionBunnyWithFeather(feather);
 			break;
+		}
+		
+		//test collision: Farmer <-> Fire
+		for(Fire fire: level.fires)
+		{
+//			if(fire.touched)
+//				continue;
+			r2.set(fire.position.x, fire.position.y,fire.bounds.width, fire.bounds.height);
+			if (!r1.overlaps(r2)) 
+				continue;
+			onCollisionBunnyWithFire(fire);
+			break;
+
 		}
 	}
 

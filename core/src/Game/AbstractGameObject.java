@@ -1,5 +1,6 @@
 package Game;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -21,6 +22,16 @@ public abstract class AbstractGameObject
 	public Rectangle bounds;
 
 
+	//animation
+	public float stateTime;
+	public Animation animation;
+	
+	public void setAnimation (Animation animation) 
+	{
+	     this.animation = animation;
+	     stateTime = 0;
+	}
+	  
 
 	public AbstractGameObject ()
 	{
@@ -41,6 +52,9 @@ public abstract class AbstractGameObject
 
 	public void update (float deltaTime) 
 	{
+	     stateTime += deltaTime;
+
+	     
 		updateMotionX(deltaTime);
         updateMotionY(deltaTime);
         
