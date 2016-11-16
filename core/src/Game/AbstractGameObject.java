@@ -1,5 +1,6 @@
 package Game;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -24,6 +25,17 @@ public abstract class AbstractGameObject
 
 	//for the carrots
 	public Body body;
+	
+	//animation
+	public float stateTime;
+	public Animation animation;
+	
+	public void setAnimation (Animation animation) 
+	{
+	     this.animation = animation;
+	     stateTime = 0;
+	}
+	  
 
 	public AbstractGameObject ()
 	{
@@ -43,6 +55,7 @@ public abstract class AbstractGameObject
 
 	public void update (float deltaTime) 
 	{
+	     stateTime += deltaTime;
 		if (body == null) 
 		{
 			updateMotionX(deltaTime);

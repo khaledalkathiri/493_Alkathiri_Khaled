@@ -13,6 +13,7 @@ import Utilities.GamePreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 
 public class BunnyHead extends AbstractGameObject
 {
@@ -31,6 +32,12 @@ public class BunnyHead extends AbstractGameObject
 
 
 	public ParticleEffect dustParticles = new ParticleEffect();
+	
+	private Animation animNormal;
+	private Animation animCopterTransform;
+	private Animation animCopterTransformBack;
+	private Animation animCopterRotate;
+
 
 	public BunnyHead () 
 	{
@@ -40,7 +47,15 @@ public class BunnyHead extends AbstractGameObject
 	public void init () 
 	{
 		dimension.set(1, 1);
-		regHead = Assets.instance.bunny.head;
+		
+		 animNormal = Assets.instance.bunny.animNormal;
+	     animCopterTransform = Assets.instance.bunny.animCopterTransform;
+	     animCopterTransformBack =Assets.instance.bunny.animCopterTransformBack;
+	     animCopterRotate = Assets.instance.bunny.animCopterRotate;
+	     setAnimation(animNormal);
+	     
+		//regHead = Assets.instance.bunny.head;
+		
 		// Center image on game object
 		origin.set(dimension.x / 2, dimension.y / 2);
 		// Bounding box for collision detection
@@ -61,6 +76,8 @@ public class BunnyHead extends AbstractGameObject
 
 		// Particles
 		dustParticles.load(Gdx.files.internal("particles/dust.pfx"), Gdx.files.internal("particles"));
+		
+
 	}
 
 	public void setJumping (boolean jumpKeyPressed)
@@ -124,18 +141,53 @@ public class BunnyHead extends AbstractGameObject
 		}
 		if (timeLeftFeatherPowerup > 0) 
 		{
+			 if (animation == animCopterTransformBack)
+			 {
+		         // Restart "Transform" animation if another feather power-up
+				// was picked up during "TransformBack" animation. Otherwise,
+				// the "TransformBack" animation would be stuck while the
+				// power-up is still active.
+				setAnimation(animCopterTransform);
+			 }
+			 
 			timeLeftFeatherPowerup -= deltaTime;
 			if (timeLeftFeatherPowerup < 0) 
 			{
 				//disable power-up
 				timeLeftFeatherPowerup = 0;
 				setFeatherPowerup(false);
+				setAnimation(animCopterTransformBack);
 			}
 
 
 		}
 
 		dustParticles.update(deltaTime);
+
+		// Change animation state according to feather power-up
+		if (hasFeatherPowerup)
+		{
+			if (animation == animNormal)
+			{
+				setAnimation(animCopterTransform);
+			} else if (animation == animCopterTransform)
+			{
+				if (animation.isAnimationFinished(stateTime))
+					setAnimation(animCopterRotate);
+			}
+		} else 
+		{
+			if (animation == animCopterRotate) 
+			{
+				if (animation.isAnimationFinished(stateTime))
+					setAnimation(animCopterTransformBack);
+				
+			} else if (animation == animCopterTransformBack) 
+			{
+				if (animation.isAnimationFinished(stateTime))
+					setAnimation(animNormal);
+			} 
+		}
 	}
 
 	@Override
@@ -203,20 +255,31 @@ public class BunnyHead extends AbstractGameObject
 			// Apply Skin Color
 			batch.setColor(
 					CharacterSkin.values()[GamePreferences.instance.charSkin].getColor());
-
-			// Set special color when game object has a feather power-up
-			if (hasFeatherPowerup) 
-			{
-				batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
-			}
-
+			
+			float dimCorrectionX = 0;
+			  float dimCorrectionY = 0;
+			  if (animation != animNormal) 
+			  {
+			    dimCorrectionX = 0.05f;
+			    dimCorrectionY = 0.2f;
+			  }
 			// Draw image
-			reg = regHead;
-			batch.draw(reg.getTexture(), position.x, position.y, origin.x,
-					origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,
-					reg.getRegionX(), reg.getRegionY(), reg.getRegionWidth(),
-					reg.getRegionHeight(), viewDirection == VIEW_DIRECTION.LEFT,
-					false);
+			  reg = animation.getKeyFrame(stateTime, true);
+
+//			// Set special color when game object has a feather power-up
+//			if (hasFeatherPowerup) 
+//			{
+//				batch.setColor(1.0f, 0.8f, 0.0f, 1.0f);
+//			}
+//				reg = regHead;
+
+			  
+			// Draw image
+			  batch.draw(reg.getTexture(), position.x, position.y, origin.x, origin.y, dimension.x + dimCorrectionX,
+					  dimension.y + dimCorrectionY, scale.x, scale.y, rotation,
+					  reg.getRegionX(), reg.getRegionY(),
+					  reg.getRegionWidth(), reg.getRegionHeight(),
+					  viewDirection == VIEW_DIRECTION.LEFT, false);
 
 			// Reset color to white
 			batch.setColor(1, 1, 1, 1);
