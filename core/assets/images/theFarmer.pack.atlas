@@ -1,0 +1,132 @@
+
+theFarmer.pack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+anim_fire
+  rotate: false
+  xy: 2, 68
+  size: 67, 61
+  orig: 67, 61
+  offset: 0, 0
+  index: 5
+anim_fire
+  rotate: false
+  xy: 517, 502
+  size: 62, 64
+  orig: 62, 64
+  offset: 0, 0
+  index: 3
+anim_fire
+  rotate: false
+  xy: 581, 502
+  size: 61, 64
+  orig: 61, 64
+  offset: 0, 0
+  index: 1
+anim_fire
+  rotate: false
+  xy: 644, 504
+  size: 60, 62
+  orig: 60, 62
+  offset: 0, 0
+  index: 2
+anim_fire
+  rotate: false
+  xy: 71, 68
+  size: 57, 61
+  orig: 57, 61
+  offset: 0, 0
+  index: 6
+anim_fire
+  rotate: false
+  xy: 706, 506
+  size: 53, 60
+  orig: 53, 60
+  offset: 0, 0
+  index: 4
+cloud01
+  rotate: false
+  xy: 202, 488
+  size: 178, 78
+  orig: 178, 78
+  offset: 0, 0
+  index: -1
+cloud02
+  rotate: false
+  xy: 2, 478
+  size: 198, 88
+  orig: 198, 88
+  offset: 0, 0
+  index: -1
+cloud03
+  rotate: false
+  xy: 2, 391
+  size: 182, 85
+  orig: 182, 85
+  offset: 0, 0
+  index: -1
+dates
+  rotate: false
+  xy: 451, 502
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+farmer
+  rotate: false
+  xy: 382, 502
+  size: 67, 64
+  orig: 67, 64
+  offset: 0, 0
+  index: -1
+feather
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fire
+  rotate: false
+  xy: 68, 6
+  size: 55, 60
+  orig: 55, 60
+  offset: 0, 0
+  index: -1
+leftEdge
+  rotate: false
+  xy: 2, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+middle
+  rotate: false
+  xy: 2, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+mountain_left
+  rotate: false
+  xy: 2, 795
+  size: 1000, 225
+  orig: 1000, 225
+  offset: 0, 0
+  index: -1
+mountain_right
+  rotate: false
+  xy: 2, 568
+  size: 1000, 225
+  orig: 1000, 225
+  offset: 0, 0
+  index: -1
+water_overlay
+  rotate: false
+  xy: 132, 229
+  size: 32, 160
+  orig: 32, 160
+  offset: 0, 0
+  index: -1

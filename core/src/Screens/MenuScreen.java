@@ -38,6 +38,7 @@ public class MenuScreen extends AbstractGameScreen
 
 	private Stage stage;
 	private Skin skinCanyonBunny;
+	
 	// menu
 	private Image imgBackground;
 	private Image imgLogo;
@@ -46,6 +47,8 @@ public class MenuScreen extends AbstractGameScreen
 	private Image imgBunny;
 	private Button btnMenuPlay;
 	private Button btnMenuOptions;
+	private Button btnHighScore;
+	
 	// options
 	private Window winOptions;
 	private TextButton btnWinOptSave;
@@ -57,6 +60,7 @@ public class MenuScreen extends AbstractGameScreen
 	private SelectBox<CharacterSkin> selCharSkin;
 	private Image imgCharSkin;
 	private CheckBox chkShowFpsCounter;
+	
 	// debug
 	private final float DEBUG_REBUILD_INTERVAL = 5.0f;
 	private boolean debugEnabled = false;
@@ -107,6 +111,7 @@ public class MenuScreen extends AbstractGameScreen
 		layer.add(imgBackground);
 		return layer;
 	}
+	
 	private Table buildObjectsLayer () 
 	{
 		Table layer = new Table();
@@ -120,6 +125,8 @@ public class MenuScreen extends AbstractGameScreen
 		imgBunny.setPosition(355, 40);
 		return layer;
 	}
+	
+	
 	private Table buildLogosLayer () 
 	{
 		Table layer = new Table();
@@ -134,6 +141,8 @@ public class MenuScreen extends AbstractGameScreen
 
 		return layer;
 	}
+	
+	
 	private Table buildControlsLayer () 
 	{
 		Table layer = new Table();
@@ -162,7 +171,22 @@ public class MenuScreen extends AbstractGameScreen
 				onOptionsClicked();
 			}
 		});
-		if (debugEnabled) layer.debug();
+		
+		layer.row();
+		btnHighScore = new Button (skinCanyonBunny, "High Scores");
+		//TextButton highScorebutton= new TextButton ("High Scores", skinCanyonBunny);
+		layer.add(btnHighScore);
+		btnHighScore.addListener(new ChangeListener()
+		{
+			@Override
+			public void changed (ChangeEvent event, Actor actor) 
+			{
+				onOptionsClicked();
+			}
+		});
+		
+		if (debugEnabled) 
+			layer.debug();
 		return layer;
 	}
 
@@ -317,6 +341,7 @@ public class MenuScreen extends AbstractGameScreen
 		loadSettings();
 	     btnMenuPlay.setVisible(false);
 	     btnMenuOptions.setVisible(false);
+	     btnHighScore.setVisible(false);
 	     winOptions.setVisible(true);
 	}
 
@@ -360,6 +385,7 @@ public class MenuScreen extends AbstractGameScreen
 	{
 		btnMenuPlay.setVisible(true);
 		btnMenuOptions.setVisible(true);
+		btnHighScore.setVisible(true);
 		winOptions.setVisible(false);
 		AudioManager.instance.onSettingsUpdated();
 
@@ -373,9 +399,11 @@ public class MenuScreen extends AbstractGameScreen
 		if(Gdx.input.isTouched())
 			game.setScreen(new GameScreen(game));
 
-		if (debugEnabled) {
+		if (debugEnabled) 
+		{
 			debugRebuildStage -= deltaTime;
-			if (debugRebuildStage <= 0) {
+			if (debugRebuildStage <= 0) 
+			{
 				debugRebuildStage = DEBUG_REBUILD_INTERVAL;
 				rebuildStage();
 			}

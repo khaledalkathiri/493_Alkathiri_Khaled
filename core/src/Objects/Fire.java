@@ -28,7 +28,7 @@ public class Fire extends AbstractGameObject
 	     stateTime = MathUtils.random(0.0f, 1.0f);
 	     
 		
-	     //regGoldCoin = Assets.instance.goldCoin.goldCoin;
+	    //regGoldCoin = Assets.instance.goldCoin.goldCoin;
 		// Set bounding box for collision detection
 		bounds.set(0, 0, dimension.x, dimension.y);
 		touched = false;
@@ -42,7 +42,7 @@ public class Fire extends AbstractGameObject
 		
 
 		reg = animation.getKeyFrame(stateTime, true);
-		batch.draw(reg.getTexture(),position.x, position.y, origin.x, origin.y,  dimension.x, dimension.y,
+		batch.draw(reg.getTexture(),position.x, position.y , origin.x, origin.y,  dimension.x, dimension.y,
 				scale.x, scale.y, rotation,reg.getRegionX(), reg.getRegionY(),
 				reg.getRegionWidth(), reg.getRegionHeight(),false, false);
 	}

@@ -1,5 +1,7 @@
 package Game;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -36,8 +38,10 @@ public class WorldController  extends InputAdapter
 
 	public CameraHelper cameraHelper;
 	private float timeLeftGameOverDelay;
+	
+	ArrayList <Integer> scores = new ArrayList<Integer>();
 
-
+	
 	// Rectangles for collision detection
 	private Rectangle r1 = new Rectangle();
 	private Rectangle r2 = new Rectangle();
@@ -51,8 +55,12 @@ public class WorldController  extends InputAdapter
 	public Level level;
 	public int lives;
 	public int score;
+	private Game game;
 
 
+	/**
+	 * 
+	 */
 	private void initLevel () 
 	{
 		score = 0;
@@ -62,7 +70,10 @@ public class WorldController  extends InputAdapter
 
 	}
 
-	private Game game;
+	
+	/**
+	 * 
+	 */
 	private void backToMenu () 
 	{
 		// switch to menu screen
@@ -71,12 +82,20 @@ public class WorldController  extends InputAdapter
 
 
 
+	/**
+	 * 
+	 * @param game
+	 */
 	public WorldController(Game game)
 	{
 		this.game= game;
 		init();
 	}
 
+	
+	/**
+	 * 
+	 */
 	private void init()
 	{
 		Gdx.input.setInputProcessor(this);
@@ -88,6 +107,11 @@ public class WorldController  extends InputAdapter
 	}
 
 
+	
+	/**
+	 * 
+	 * @param deltaTime
+	 */
 	public void update (float deltaTime)
 	{
 		handleDebugInput(deltaTime);
@@ -127,6 +151,10 @@ public class WorldController  extends InputAdapter
 	
 	
 
+	/**
+	 * 
+	 * @param deltaTime
+	 */
 	private void handleDebugInput(float deltaTime) 
 	{
 		if(Gdx.app.getType() != ApplicationType.Desktop)
@@ -178,6 +206,12 @@ public class WorldController  extends InputAdapter
 
 	}
 
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	private void moveCamera(float x, float y)
 	{
 		x+= cameraHelper.getPosition().x;
@@ -186,7 +220,9 @@ public class WorldController  extends InputAdapter
 	}
 
 
-
+/**
+ * 
+ */
 	@Override
 	public boolean keyUp (int keycode)
 	{
@@ -216,7 +252,10 @@ public class WorldController  extends InputAdapter
 
 
 
-
+/**
+ * 
+ * @param rock
+ */
 	private void onCollisionBunnyHeadWithRock(Rock rock) 
 	{
 		Farmer farmer = level.farmer;
@@ -248,6 +287,11 @@ public class WorldController  extends InputAdapter
 		}
 	}
 
+	
+	/**
+	 * 
+	 * @param dates
+	 */
 	private void onCollisionBunnyWithGoldCoin(Dates dates) 
 	{
 		dates.collected = true;
@@ -257,6 +301,11 @@ public class WorldController  extends InputAdapter
 
 	}
 
+	
+	/**
+	 * 
+	 * @param feather
+	 */
 	private void onCollisionBunnyWithFeather(Feather feather) 
 	{
 		feather.collected = true;
@@ -266,6 +315,11 @@ public class WorldController  extends InputAdapter
 		Gdx.app.log(TAG, "Feather collected");
 	}
 	
+	
+	/**
+	 * 
+	 * @param fire
+	 */
 	private void onCollisionBunnyWithFire(Fire fire) 
 	{
 		fire.touched = true;
@@ -274,6 +328,9 @@ public class WorldController  extends InputAdapter
 		Gdx.app.log(TAG, "Fire touched");
 	}
 
+	/**
+	 * 
+	 */
 	private void testCollisions () 
 	{
 		r1.set(level.farmer.position.x, level.farmer.position.y,level.farmer.bounds.width, level.farmer.bounds.height);
@@ -331,6 +388,11 @@ public class WorldController  extends InputAdapter
 	}
 
 
+	
+	/**
+	 * 
+	 * @param deltaTime
+	 */
 	private void handleInputGame (float deltaTime) 
 	{
 		if (cameraHelper.hasTarget(level.farmer)) 
@@ -363,15 +425,29 @@ public class WorldController  extends InputAdapter
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isGameOver () 
 	{
 		return lives < 0;
 	}
 
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isPlayerInWater () 
 	{
 		return level.farmer.position.y < -5;
 	}
+	
+	/**
+	 * 
+	 */
+
 
 
 }
